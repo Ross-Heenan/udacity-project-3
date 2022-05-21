@@ -30,7 +30,7 @@ jobs:
           command: |
             cd backend
             npm install
-            nest build    
+            npm run start:dev 
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
