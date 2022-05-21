@@ -29,9 +29,9 @@ jobs:
           name: Back-end build
           command: |
             cd backend
-            npm login
             npm install
-            npm run start:prod 
+            npm install -g @nestjs/cli
+            nest build
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
