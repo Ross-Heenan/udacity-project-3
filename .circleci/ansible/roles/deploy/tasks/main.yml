@@ -10,6 +10,7 @@
     dest: ~/web
 
 - name: Start App
+  become: true
   shell: |
     cd ~/web
     apt-get install tar gzip
