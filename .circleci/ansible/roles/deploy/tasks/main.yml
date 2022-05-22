@@ -11,7 +11,7 @@
 
 - name: Start App
   become: true
-  shell: cd ~/web
+  shell: cd root/web
 
 - name: Start App 2
   become: true
