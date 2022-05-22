@@ -228,7 +228,7 @@ jobs:
               apk add --update npm
               apk add --update ansible 
               pip3 install awscli
-         - attach_workspace:
+        - attach_workspace:
             at: project/.circleci/ansible/inventory.txt
         - run:
             name: Deploy backend
