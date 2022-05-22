@@ -6,7 +6,7 @@
 
 - name: Copy backend and unzip
   copy:
-    src: "~/backend.tar.gz"
+    src: "~/artifact.tar.gz"
     dest: "~/web"
 
 - name: Start App
