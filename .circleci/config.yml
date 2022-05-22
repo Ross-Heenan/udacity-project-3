@@ -135,7 +135,7 @@ jobs:
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
 
       - run:
-          name: Ensure front-end infrastructure exist
+          name: Ensure front-end infrastructure exists
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
@@ -157,6 +157,27 @@ jobs:
             - project/.circleci/ansible/inventory.txt
       
       - destroy-environment
+
+  configure-infrastructure:
+      docker:
+        - image: python:3.7-alpine3.11
+      steps:
+        - checkout
+        - add_ssh_keys:
+            fingerprints: ["90:95:21:8b:7e:ae:b3:91:45:9c:93:d3:20:76:d1:25:3c:ba:59:18"]
+        - attach_workspace:
+            at: project/.circleci/ansible/inventory.txt
+        - run:
+            name: Install dependencies
+            command: |
+              yum install -y tar gzip
+              apk add --update ansible 
+        - run:
+            name: Configure server
+            command: |
+              cd .circleci/ansible
+              ansible-playbook -i inventory.txt configure-server.yml
+        # Here's where you will add some code to rollback on failure      
 
 workflows:
   default:
