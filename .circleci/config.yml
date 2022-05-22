@@ -172,6 +172,7 @@ jobs:
             command: |
               apk add --update tar gzip
               apk add --update ansible 
+              apk add --no-cache aws-cli
         - run:
             name: Configure server
             command: |
