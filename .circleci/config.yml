@@ -150,7 +150,6 @@ jobs:
             cd .circleci/ansible
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters Name=instance-state-name,Values=running \
               --output text >> inventory.txt
             cat inventory.txt
 
@@ -198,7 +197,7 @@ jobs:
             pip3 install awscli
  
       - attach_workspace:
-          at: project/.circleci/ansible/inventory.txt   
+          at: project/.circleci/ansible  
       - run:
           name: Get backend url
           command: |
@@ -233,7 +232,7 @@ jobs:
               apk add --update ansible 
               pip3 install awscli
         - attach_workspace:
-            at: project/.circleci/ansible/inventory.txt
+            at: project/.circleci/ansible
         - run:
             name: Deploy backend
             command: |
@@ -241,7 +240,6 @@ jobs:
               npm i
               npm run build
               cd ..
-              # Zip the directory
               tar -C backend -czvf artifact.tar.gz .
               cd .circleci/ansible
               echo "Contents  of the inventory.txt file is -------"
@@ -263,7 +261,7 @@ jobs:
               apk add --update npm
               pip3 install awscli
         - attach_workspace:
-            at: project/.circleci/ansible/inventory.txt           
+            at: project/.circleci/ansible          
         - run:
             name: Backend smoke test.
             command: |
