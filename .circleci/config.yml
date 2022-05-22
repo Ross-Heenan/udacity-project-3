@@ -264,7 +264,7 @@ jobs:
         - run:
             name: Get backend url
             command: |
-              export BACKEND_IP=aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress'
+              export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress')
         - run:
             name: Backend smoke test.
             command: |
@@ -313,4 +313,4 @@ workflows:
       - deploy-backend:
           requires: [configure-infrastructure]
       - smoke-test:
-          requires: [deploy-backend]
+          requires: [deploy-backend, deploy-frontend]
