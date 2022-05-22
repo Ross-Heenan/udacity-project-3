@@ -6,7 +6,7 @@
 
 - name: Copy backend and unzip
   template:
-    src: "backend/artifact.tar.gz"
+    src: "backend.tar.gz"
     dest: "~/web"
 
 - name: Start App
