@@ -11,6 +11,7 @@
 
 - name: Start App
   shell: |
+    cd ~/web
     apt-get install tar gzip
     tar -xf artifact.tar.gz
     rm -f artifact.tar.gz
