@@ -185,8 +185,6 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - attach_workspace:
-          at: project/.circleci/ansible/inventory.txt
       - run:
           name: Install dependencies
           command: |
@@ -194,7 +192,9 @@ jobs:
             yum install nodejs
             yum install python3
             python3 -m pip install ansible  
-            pip3 install awscli    
+            pip3 install awscli 
+      - attach_workspace:
+          at: project/.circleci/ansible/inventory.txt   
       - run:
           name: Get backend url
           command: |
@@ -220,15 +220,16 @@ jobs:
         - checkout
         - add_ssh_keys:
             fingerprints: ["90:95:21:8b:7e:ae:b3:91:45:9c:93:d3:20:76:d1:25:3c:ba:59:18"]
-        - attach_workspace:
-            at: project/.circleci/ansible/inventory.txt
         - run:
             name: Install dependencies
             command: |
               apk add --update tar gzip
               apk add --update nodejs
+              apk add --update npm
               apk add --update ansible 
               pip3 install awscli
+         - attach_workspace:
+            at: project/.circleci/ansible/inventory.txt
         - run:
             name: Deploy backend
             command: |
