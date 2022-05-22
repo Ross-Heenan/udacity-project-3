@@ -124,8 +124,8 @@ jobs:
       - run:
           name: install tar/gzip
           command: |
-            apt-get install tar
-            apt-get install gzip
+            install tar
+            install gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
