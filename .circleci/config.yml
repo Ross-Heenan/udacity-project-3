@@ -260,14 +260,11 @@ jobs:
               apk add --update npm
               pip3 install awscli
         - attach_workspace:
-            at: project/.circleci/ansible/inventory.txt
-        - run:
-            name: Get backend url
-            command: |
-              export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress')
+            at: project/.circleci/ansible/inventory.txt           
         - run:
             name: Backend smoke test.
             command: |
+              export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress')
               export API_URL="http://${BACKEND_IP}:3030"
               echo "${API_URL}"
               if curl "${API_URL}/api/status" | grep "ok"
