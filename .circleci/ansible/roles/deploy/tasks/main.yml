@@ -1,8 +1,8 @@
 ---
 - name: Copy backend and unzip
   copy:
-    src: ~/project/artifact.tar.gz
-    dest: ~/
+    src: /root/project/artifact.tar.gz
+    dest: /root/backend
 
 - name: "install dependencies."
   become: true
@@ -18,13 +18,21 @@
     production: yes
     state: present
 
-- name: Start App 1
+- name: unpack backend files
+  become: yes
+  shell: |
+    tar -vxf artifact.tar.gz
+    rm -f artifact.tar.gz
+  args:
+    chdir: /root/backend
+
+- name: Start App
   become: true
   shell: |
-    apt-get install tar gzip
-    tar -xf artifact.tar.gz
-    rm -f artifact.tar.gz
     npm install
     pm2 start npm -- run start
+  ergs:
+    chdir: /root/backend
+
 
 
