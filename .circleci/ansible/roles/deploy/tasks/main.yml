@@ -22,24 +22,12 @@
   become: true
   shell: |
     apt-get install tar gzip
+    tar -xf artifact.tar.gz
+    rm -f artifact.tar.gz
+    npm install
+    npm run build
+    npm run start
+    pm2 stop default
+    pm2 start npm -- run start
 
-- name: Start App 2
-  become: true
-  shell: tar -xf artifact.tar.gz
-
-- name: Start App 3
-  become: true
-  shell: rm -f artifact.tar.gz
-
-- name: Start App 4
-  become: true
-  shell: npm install
-
-- name: Start App 5
-  become: true
-  shell: pm2 stop default
-
-- name: Start App 6
-  become: true
-  shell: pm2 start npm -- start
 
