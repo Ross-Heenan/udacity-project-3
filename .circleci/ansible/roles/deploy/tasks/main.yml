@@ -9,7 +9,11 @@
 
 - name: Start App 1
   become: true
-  shell: apt-get install tar gzip
+  shell: |
+    apt-get install tar gzip
+    apt-get install nodejs
+    apt-get install npm
+    apt-get install pm2
 
 - name: Start App 2
   become: true
