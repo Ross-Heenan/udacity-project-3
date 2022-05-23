@@ -1,5 +1,6 @@
 ---
 - name: Creates directory
+  become: true
   file:
     path: /root/backend
     state: directory
@@ -24,7 +25,7 @@
     state: present
 
 - name: unpack backend files
-  become: yes
+  become: true
   shell: |
     tar -vxf artifact.tar.gz
     rm -f artifact.tar.gz
