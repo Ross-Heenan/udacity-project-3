@@ -6,6 +6,7 @@
     state: directory
 
 - name: Copy backend and unzip
+  become: true
   copy:
     src: /root/project/artifact.tar.gz
     dest: /root/backend
