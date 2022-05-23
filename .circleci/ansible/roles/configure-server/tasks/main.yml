@@ -15,14 +15,14 @@
     autoremove: yes
 
 - name: "install dependencies."
-  become: yes
+  become: true
   apt:
     name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
 
 - name: "install pm2"
-  become: yes
+  become: ture
   npm:
     name: pm2
     global: yes
