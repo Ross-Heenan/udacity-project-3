@@ -1,4 +1,9 @@
 ---
+- name: Creates directory
+  file:
+    path: /root/backend
+    state: directory
+
 - name: Copy backend and unzip
   copy:
     src: /root/project/artifact.tar.gz
