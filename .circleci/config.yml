@@ -193,6 +193,7 @@ jobs:
             cd backend
             npm install
             npm run migrations > migrations_dump.txt
+    - destroy-environment
           
   deploy-frontend:
     docker:
