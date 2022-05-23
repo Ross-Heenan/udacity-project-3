@@ -1,15 +1,10 @@
 ---
-- name: Creates directory
-  become: true
+- name: create backend directory
+  become: yes
   file:
     path: ~/backend
     state: directory
-
-- name: Copy backend and unzip
-  become: true
-  copy:
-    src: ~/project/artifact.tar.gz
-    dest: ~/backend
+    mode: 0755
 
 - name: "install dependencies."
   become: true
@@ -25,21 +20,28 @@
     production: yes
     state: present
 
-- name: unpack backend files
-  become: true
+- name: Copy artifact
+  become: yes
+  copy:
+    src: ~/project/artifact.tar.gz
+    dest: ~/backend/artifact.tar.gz
+
+- name: Unpack Artifact
+  become: yes
   shell: |
+    cd ~/backend
     tar -vxf artifact.tar.gz
     rm -f artifact.tar.gz
-  args:
-    chdir: ~/backend
 
 - name: Start App
-  become: true
+  become: yes
   shell: |
+    cd ~/backend
     npm install
-    pm2 start npm -- run start
-  args:
-    chdir: ~/backend
+    pm2 stop default
+    pm2 start npm -- start
+    cd dist
+    pm2 start main.js --update-env
 
 
 
