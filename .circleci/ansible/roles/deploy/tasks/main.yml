@@ -21,7 +21,7 @@
 
 - name: Start App 4
   become: true
-  shell: cd backend
+  raw: cd backend
 
 - name: Start App 4
   become: true
