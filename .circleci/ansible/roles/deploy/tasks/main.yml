@@ -31,7 +31,7 @@
   shell: |
     npm install
     pm2 start npm -- run start
-  ergs:
+  args:
     chdir: /root/backend
 
 
