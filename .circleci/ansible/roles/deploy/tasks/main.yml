@@ -2,14 +2,14 @@
 - name: Creates directory
   become: true
   file:
-    path: /root/backend
+    path: ~/backend
     state: directory
 
 - name: Copy backend and unzip
   become: true
   copy:
-    src: /root/project/artifact.tar.gz
-    dest: /root/backend
+    src: ~/project/artifact.tar.gz
+    dest: ~/backend
 
 - name: "install dependencies."
   become: true
@@ -31,7 +31,7 @@
     tar -vxf artifact.tar.gz
     rm -f artifact.tar.gz
   args:
-    chdir: /root/backend
+    chdir: ~/backend
 
 - name: Start App
   become: true
@@ -39,7 +39,7 @@
     npm install
     pm2 start npm -- run start
   args:
-    chdir: /root/backend
+    chdir: ~/backend
 
 
 
